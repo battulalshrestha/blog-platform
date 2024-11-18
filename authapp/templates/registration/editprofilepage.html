@@ -1,0 +1,27 @@
+{% extends "bases.html" %}
+
+{% block title %}
+    <title>Edit Profile page</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Edit prfile page..</h1>
+    <h2>Add Post</h2>
+    <div class="form-group">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+   
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-secondary">Update page</button><br><br>
+        </form>
+    </div>
+  <script>
+
+    var name = "{{ page_user.username }}";
+    document.getElementById("elder").placeholder = username;
+
+    
+    </script> 
+    <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
+{% endblock content %}
+

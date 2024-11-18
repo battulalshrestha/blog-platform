@@ -1,0 +1,35 @@
+
+{% extends "bases.html" %}
+
+{% block title %}
+    <title>Create New Blog Post</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Create a New Blog Post</h1>
+    <h2>Add Post</h2>
+    <div class="form-group">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-secondary">Post</button><br><br>
+        </form>
+    </div>
+    <script>
+
+    var name = "{{ user.username }}";
+    document.getElementById("elder").placeholder = username;
+
+    
+    </script>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
+{% endblock content %}
+
+
+
+
+
+
+
+

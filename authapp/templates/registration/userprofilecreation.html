@@ -1,0 +1,23 @@
+
+{% extends "bases.html" %}
+
+{% block title %}
+    <title>Profile Create page</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Create a New profile</h1>
+    <h2>Add Post</h2>
+    <div class="form-group">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.media }}
+          
+           <a href="{% url 'home' %}" class="btn btn-secondary">Create profile page</a> <br><br>
+
+        </form>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
+{% endblock content %}

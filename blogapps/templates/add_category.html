@@ -1,0 +1,20 @@
+{% extends "bases.html" %}
+{% block content  %}
+<h1>A new blog category</h1>
+<br> <br/>
+<table>
+<div class = "form-group">
+<form action="" method="POST" enctype="multipart/form-data">
+
+{% comment %} <form action="POST"> {% endcomment %}
+{% csrf_token %}
+{{ form.as_p}}
+
+
+{% comment %} <a href="" type = "button" class = "btn btn-secondary">Go back</a> {% endcomment %}
+{% comment %} <a href="{% url 'home' %}" type = "button" class = "btn btn-secondary">Go back</a>  {% endcomment %}
+
+</table>
+<button class= "btn btn-secondary">Add category</button>
+</div>
+{% endblock  %}

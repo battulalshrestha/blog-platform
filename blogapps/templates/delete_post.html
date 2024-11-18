@@ -1,0 +1,38 @@
+{% extends "bases.html" %}
+{% block content %}
+<h1>Delete Post</h1>
+<p>Are you sure you want to delete "{{ post.title }}"?</p>
+<div class="form_group">
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+</form>
+</div>
+{% endblock %}
+
+
+
+<!--{% comment %} {% extends "bases.html" %}
+{% block content  %}
+Delete blog post
+<br> <br/>
+<table>
+<h1>Delete Post.</h1> <br>
+<h3>Are you sure you wanna delete "{{post.title }}"</h3>
+<div class = "form-group">
+<form action="" method="POST" enctype="multipart/form-data">
+
+{% comment %} <form action="POST"> {% endcomment %}
+{% csrf_token %}
+{{post.as_p}}
+{% comment %} <a href="" type = "button" class = "btn btn-secondary">Go back</a> {% endcomment %}
+{% comment %} <a href="{% url 'home' %}" type = "button" class = "btn btn-secondary">Go back</a>  {% endcomment %}
+{% comment %} <button type="button" class="btn btn-primary">Primary</button> {% endcomment %}
+{% comment %} <a href="{% url 'home' %}"></a><button type = "submit" class ="btn btn-danger">Delete</button> {% endcomment %}
+{% comment %} <a href="{% url 'hello' %}"  class= "btn btn-secondary">Cancel</button> {% endcomment %}
+{% comment %} <a href="{% url 'home' %}" type = "button" class = "btn btn-danger">Delete</a>  {% endcomment %}
+ <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+ <a href="{% url 'home' %}" class="btn btn-danger">Delete</a>
+</form>
+  -->

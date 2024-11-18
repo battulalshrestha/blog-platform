@@ -1,0 +1,23 @@
+
+{% extends "bases.html" %} 
+ {% block title %} 
+Edit profile 
+{% endblock  %}
+ {% block content %}
+
+<h1>Edit User Registration detail... </h1>
+<br> <br/>
+
+
+<table>
+<div class = "form-group">
+<form action="" method="POST" enctype="multipart/form-data">
+
+<form action="POST"> 
+{% csrf_token %}
+{{ form.as_p}}
+{{ form.media }}
+<button class= "btn btn-secondary">Update Profile</button>
+{% endblock %} 
+</div> 
+

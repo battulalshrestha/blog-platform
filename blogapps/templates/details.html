@@ -1,0 +1,135 @@
+ {% extends "bases.html" %}
+ {% load static %}
+ {% block title %}
+{{ post.title_tag }}
+ {% endblock %}
+
+ {% block content %}
+ 
+ Current User: {{ user.id }}<br>
+ Post author :{{post.author.id}}
+
+ <h1>{{ post.title}}<br>
+  The id is {{ post.author.id }}</h1><hr>
+<h2>By : {{ post.author.first_name }}  {{post.author.last_name}}</h2><hr>
+<h3>{{ post.body|safe }}</h3><hr>
+<h4>{{post.date_post}}</h4>
+
+
+{% comment %} <h4>{{ post.author_img.url }}</h4> {% endcomment %}
+<img src="{{ post.author_img.url }}" alt="image" style="max-width:200px; height:auto;"> <br><hr>
+<a href="{% url 'home' %}" type = "button" class = "btn btn-secondary">Go back</a> 
+<br/> <br/>
+<hr>
+<br>
+<form id="likeForm" action="{% url 'liked' post.pk %}" method="POST">
+    {% csrf_token %}
+    <button
+        id="likeButton"
+        type="submit"
+        name="post_id"
+        value="{{ post.id }}"
+        class="btn {% if liked %}btn-danger{% else %}btn-primary{% endif %}">
+        {% if liked %}UnLike{% else %}Like{% endif %}
+    </button>
+</form>
+
+<div id="likeCount" style="margin-top: 8px;">
+    {{ total_like }} Likes
+</div>
+ <h2>Comments...</h2>
+{% comment %} {% if not post.comment.all %}
+No Comment yet.. <a href = "#">
+Add one </a>
+{% else %}
+   {% for com in post.comment.all %}
+  <strong> {{com.name }} - {{com.add_date }}</strong>
+  {{com.body}}
+  {% endfor %}
+  {% endif %}  {% endcomment %}
+ <a href="{% url 'addcomment' post.pk %}">Add comment</a> 
+{% for com in post.do_comment.all %}
+    <strong>{{ com.name }}</strong><br>
+    on {{ com.add_date|date:"M d, Y" }}: <br>
+    {{ com.body|slice:":50" }}...
+{% endfor %}
+
+<script>
+document.getElementById("likeForm").onsubmit = function(event) {
+    event.preventDefault(); // Prevent form submission to avoid page reload
+
+    const likeButton = document.getElementById("likeButton");
+    const likeCount = document.getElementById("likeCount");
+    let likes = parseInt(likeCount.textContent);
+
+    // Toggle button text and class
+    if (likeButton.classList.contains("btn-primary")) {
+        likeButton.classList.remove("btn-primary");
+        likeButton.classList.add("btn-danger");
+        likeButton.textContent = "UnLike";
+        likeCount.textContent = `${likes + 1} -> Likes`;
+    } else {
+        likeButton.classList.remove("btn-danger");
+        likeButton.classList.add("btn-primary");
+        likeButton.textContent = "Like";
+        likeCount.textContent = `${likes - 1}  Likes`;
+    }
+
+    // Make an AJAX POST request to update the like status on the server
+    fetch("{% url 'liked' post.pk %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ post_id: likeButton.value })
+    });
+};
+</script>
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+
+<a href="{% url 'showprofile' post.author.profile.id %}">Profile page</a>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">
+        <p class ="card-text text-muted">
+        <a href="{{ post.author.profile.website_url }}">Website url</a> |
+        {% if post.author.profile.facebook_url %}
+    <a href="{{ post.author.profile.facebook_url_url }}" target="_blank">Facebook Page |</a>
+{% else %}
+    <span>No facebook page available</span>
+{% endif %}
+
+        <a href="{{ post.author.profile.instagram_url }}">Instagram page</a> |
+        <a href="{{ post.author.profile.linkedin_url }}">Linkedin Page</a>
+    
+        <p class="card-text">{{ post.body|safe }}</p>
+        <p class="card-text"><small class="text-body-secondary">{{post.date_post}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} <a href="{% url 'showprofile' post.author.profile.user %}">Profile page</a>
+{{ post.author.profile.user }} <br>
+{{ post.author.profile.bio }} <br>
+{{ post.author.profile.inquiry }} <br>
+{{ post.author.profile.inquiry }} <br>
+{{ post.author.profile.website_url}} <br>
+{{ post.author.profile.facebook_url}} <br>
+{{ post.author.profile.instagram_url }} <br>
+{{ post.author.profile.linkedin_url }} <br>
+{{ post.author.profile.linkedin_url }} <br> {% endcomment %}
+
+
+{% endblock %}
+
+  {% comment %} <h1>Posts</h1>-
+    {% for post in object_list %}
+    <div class="post-container">
+        <a href="{% url 'details' post.pk %}">
+            <div class="post-title">{{ post.title }}</div>
+        </a>
+        <div class="post-author">By: {{ post.author.first_name }} {{ post.author.last_name }}</div> {% endcomment %}

@@ -1,0 +1,26 @@
+{% extends "bases.html" %}
+{% block content  %}
+
+
+<h1>Update blog post!!</h1>
+<br> <br/>
+<table>
+<div class = "form-group">
+<form action="" method="POST" enctype="multipart/form-data">
+
+{% comment %} <form action="POST"> {% endcomment %}
+{% csrf_token %}
+{{ form.media }}
+{{ form.as_p}}
+
+
+{% comment %} <a href="" type = "button" class = "btn btn-secondary">Go back</a> {% endcomment %}
+{% comment %} <a href="{% url 'home' %}" type = "button" class = "btn btn-secondary">Go back</a>  {% endcomment %}
+
+</table>
+{% comment %} <button type="button" class="btn btn-primary">Primary</button> {% endcomment %}
+<button class="btn btn-info">Update</button></a>
+
+<a href="{% url 'home' %}"><button class = "btn btn-primary">Go back</button></a>
+</div>
+{%  endblock  %}
